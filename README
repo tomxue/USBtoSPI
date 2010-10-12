@@ -1,0 +1,8 @@
+This is a Qt program which is developed to drive a USBtoSPI adapter and will apply predefined protocol for data transfer.
+
+Included 'MyDll' program is a VC6 program which is used to test the DLL invoking.
+
+TODO:
+To apply the predefined protocol of data transfer.
+
+

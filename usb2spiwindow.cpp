@@ -1,3 +1,10 @@
+/*
+
+Main functions for driving the USBtoSPI adapter.
+Copyright Tom Xue, tomxue0126@gmail.com
+
+*/
+
 #include "usb2spiwindow.h"
 #include "ui_usb2spiwindow.h"
 
