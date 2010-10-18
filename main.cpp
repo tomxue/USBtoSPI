@@ -7,10 +7,9 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
     USB2SPIWindow win;
     win.show();
-
-    //qDebug()<<GY7502_USBSPI_Open();
 
     return app.exec();
 }

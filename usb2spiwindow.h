@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <windows.h>
+#include <QApplication>
+#include <QFile>
+
 
 extern "C"
 {
@@ -25,16 +28,18 @@ private:
     Ui::USB2SPIWindow *ui;
     int m_nFreq;
     int m_nSpiMode;
-    int m_bRadio;
-    int m_nReadNum;
-    int m_nWriteNum;
 
 private slots:
     void OpenDevice();
     void CloseDevice();
     void on_openButton_clicked();
     void on_closeButton_clicked();
-    void WriteData();
+    void WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, char DB[50]);
+    void WriteFile();
+    void FileSize(QString filename);
+    void FileNameCodingType(QString filename);
+    void FileName(QString filename);
+    void FileRawDataWrite(QString filename);
 };
 
 #endif // USB2SPIWINDOW_H

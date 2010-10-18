@@ -11,7 +11,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        usb2spiwindow.cpp
+           usb2spiwindow.cpp \
+    protocol.cpp
 
 HEADERS  += usb2spiwindow.h
 
