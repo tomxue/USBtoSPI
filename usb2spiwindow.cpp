@@ -35,6 +35,9 @@ USB2SPIWindow::USB2SPIWindow(QWidget *parent):
 
     connect(ui->fileButton, SIGNAL(clicked()),
             this, SLOT(WriteFile()));
+
+    connect(ui->testButton, SIGNAL(clicked()),
+            this, SLOT(Test()));
 }
 
 USB2SPIWindow::~USB2SPIWindow()
@@ -84,35 +87,51 @@ void USB2SPIWindow::on_closeButton_clicked()
 }
 
 
-void USB2SPIWindow::WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, char DB[60])
+void USB2SPIWindow::WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, char DB[256], bool print)
 {
-    GY7502_DATA_INFO pDataInfo[3];
-
+    GY7502_DATA_INFO pDataInfo[1];
     pDataInfo->ChipSelect=m_bRadio;
     pDataInfo->ReadNum=m_nReadNum;
-    pDataInfo->WriteNum=m_nWriteNum;
+    pDataInfo->WriteNum=1;
 
-    for(int i=0; i<=59; i++)
-        pDataInfo->Databuffer[i]=DB[i];
+    QString str;            //to store the written data so that they can be shown in infoEdit
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    for(j=0;j<m_nWriteNum/16;j++)   //to show each (16 bytes) written data in infoEdit
+    {
+        pDataInfo->Databuffer[0]=DB[i+j*16];
+        GY7502_USBSPI_Write(pDataInfo);
 
-    if(GY7502_USBSPI_Write(pDataInfo)!=1)
+        if(print)
         {
-            ui->infoEdit->append("Failed to write!\n");
-            return;
-        }
-    else
-        {
-            QString str;            //to show the written data in infoEdit
-            ui->infoEdit->append("Successful to write data!");
-            for(int i=0;i<=30;i++)
+            for(i=0;i<16;i++)
             {
-                str.append(QString::number(DB[i], 16));
+                str.append(QString::number(0xFF & DB[i+j*16], 16));
                 str.append("  ");
             }
             ui->infoEdit->append(str);
             str.clear();
         }
+    }
 
+    for(k=j*16;k<m_nWriteNum;k++) //to show the rest of wriiten data in infoEdit
+    {
+        pDataInfo->Databuffer[0]=DB[k];
+        GY7502_USBSPI_Write(pDataInfo);
+
+        str.append(QString::number(0xFF & DB[k], 16));
+        str.append("  ");
+    }
+    ui->infoEdit->append(str);
+    str.clear();
 }
 
-
+void USB2SPIWindow::Test()
+{
+    ui->infoEdit->clear();
+    char *n = new char [57];
+    for(int i=0;i<57;i++)
+        n[i] = i;
+    WriteData(0,0,57,n,true);
+}

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'usb2spiwindow.ui'
 **
-** Created: Mon Oct 18 14:09:08 2010
+** Created: Wed Oct 20 11:49:06 2010
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -37,7 +37,7 @@ public:
     QPushButton *fileButton;
     QPushButton *closeButton;
     QTextEdit *infoEdit;
-    QTextEdit *dataEdit;
+    QPushButton *testButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -46,12 +46,12 @@ public:
     {
         if (USB2SPIWindow->objectName().isEmpty())
             USB2SPIWindow->setObjectName(QString::fromUtf8("USB2SPIWindow"));
-        USB2SPIWindow->resize(599, 554);
+        USB2SPIWindow->resize(591, 554);
         centralWidget = new QWidget(USB2SPIWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(90, 20, 77, 141));
+        layoutWidget->setGeometry(QRect(20, 20, 77, 141));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -79,14 +79,14 @@ public:
 
         infoEdit = new QTextEdit(centralWidget);
         infoEdit->setObjectName(QString::fromUtf8("infoEdit"));
-        infoEdit->setGeometry(QRect(206, 21, 351, 192));
-        dataEdit = new QTextEdit(centralWidget);
-        dataEdit->setObjectName(QString::fromUtf8("dataEdit"));
-        dataEdit->setGeometry(QRect(206, 219, 351, 281));
+        infoEdit->setGeometry(QRect(110, 21, 471, 481));
+        testButton = new QPushButton(centralWidget);
+        testButton->setObjectName(QString::fromUtf8("testButton"));
+        testButton->setGeometry(QRect(20, 190, 75, 23));
         USB2SPIWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(USB2SPIWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 599, 18));
+        menuBar->setGeometry(QRect(0, 0, 591, 18));
         USB2SPIWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(USB2SPIWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -107,6 +107,7 @@ public:
         openButton->setText(QApplication::translate("USB2SPIWindow", "Open Device", 0, QApplication::UnicodeUTF8));
         fileButton->setText(QApplication::translate("USB2SPIWindow", "Write File", 0, QApplication::UnicodeUTF8));
         closeButton->setText(QApplication::translate("USB2SPIWindow", "Close Device", 0, QApplication::UnicodeUTF8));
+        testButton->setText(QApplication::translate("USB2SPIWindow", "Test", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

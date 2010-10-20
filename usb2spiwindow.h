@@ -34,12 +34,16 @@ private slots:
     void CloseDevice();
     void on_openButton_clicked();
     void on_closeButton_clicked();
-    void WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, char DB[50]);
+    void WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, char DB[60], bool print);
     void WriteFile();
-    void FileSize(QString filename);
-    void FileNameCodingType(QString filename);
-    void FileName(QString filename);
-    void FileRawDataWrite(QString filename);
+    void WriteFirstPage(QString filename);
+    void WriteMiddlePage(QString filename);
+    void WriteFileSize(QString filename);
+    void WriteFileNameCodingType(QString filename);
+    void WriteFileName(QString filename);
+    void WriteFileRawData(QString filename,int startadd,int numTowrite);
+
+    void Test();
 };
 
 #endif // USB2SPIWINDOW_H

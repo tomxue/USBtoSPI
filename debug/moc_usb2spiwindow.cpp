@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'usb2spiwindow.h'
 **
-** Created: Mon Oct 18 14:57:35 2010
+** Created: Wed Oct 20 23:04:24 2010
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_USB2SPIWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,12 +35,15 @@ static const uint qt_meta_data_USB2SPIWindow[] = {
       28,   14,   14,   14, 0x08,
       42,   14,   14,   14, 0x08,
       66,   14,   14,   14, 0x08,
-     126,   91,   14,   14, 0x08,
-     158,   14,   14,   14, 0x08,
-     179,  170,   14,   14, 0x08,
-     197,  170,   14,   14, 0x08,
-     225,  170,   14,   14, 0x08,
-     243,  170,   14,   14, 0x08,
+     132,   91,   14,   14, 0x08,
+     169,   14,   14,   14, 0x08,
+     190,  181,   14,   14, 0x08,
+     214,  181,   14,   14, 0x08,
+     239,  181,   14,   14, 0x08,
+     262,  181,   14,   14, 0x08,
+     295,  181,   14,   14, 0x08,
+     347,  318,   14,   14, 0x08,
+     381,   14,   14,   14, 0x08,
 
        0        // eod
 };
@@ -49,11 +52,16 @@ static const char qt_meta_stringdata_USB2SPIWindow[] = {
     "USB2SPIWindow\0\0OpenDevice()\0CloseDevice()\0"
     "on_openButton_clicked()\0"
     "on_closeButton_clicked()\0"
-    "m_bRadio,m_nReadNum,m_nWriteNum,DB\0"
-    "WriteData(int,int,int,char[50])\0"
-    "WriteFile()\0filename\0FileSize(QString)\0"
-    "FileNameCodingType(QString)\0"
-    "FileName(QString)\0FileRawDataWrite(QString)\0"
+    "m_bRadio,m_nReadNum,m_nWriteNum,DB,print\0"
+    "WriteData(int,int,int,char[60],bool)\0"
+    "WriteFile()\0filename\0WriteFirstPage(QString)\0"
+    "WriteMiddlePage(QString)\0"
+    "WriteFileSize(QString)\0"
+    "WriteFileNameCodingType(QString)\0"
+    "WriteFileName(QString)\0"
+    "filename,startadd,numTowrite\0"
+    "WriteFileRawData(QString,int,int)\0"
+    "Test()\0"
 };
 
 const QMetaObject USB2SPIWindow::staticMetaObject = {
@@ -89,15 +97,18 @@ int USB2SPIWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 1: CloseDevice(); break;
         case 2: on_openButton_clicked(); break;
         case 3: on_closeButton_clicked(); break;
-        case 4: WriteData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< char(*)[50]>(_a[4]))); break;
+        case 4: WriteData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< char(*)[60]>(_a[4])),(*reinterpret_cast< bool(*)>(_a[5]))); break;
         case 5: WriteFile(); break;
-        case 6: FileSize((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 7: FileNameCodingType((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 8: FileName((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 9: FileRawDataWrite((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 6: WriteFirstPage((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 7: WriteMiddlePage((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 8: WriteFileSize((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 9: WriteFileNameCodingType((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 10: WriteFileName((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 11: WriteFileRawData((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 12: Test(); break;
         default: ;
         }
-        _id -= 10;
+        _id -= 13;
     }
     return _id;
 }
