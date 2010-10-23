@@ -92,7 +92,7 @@ void USB2SPIWindow::WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, cha
     GY7502_DATA_INFO pDataInfo[1];
     pDataInfo->ChipSelect=m_bRadio;
     pDataInfo->ReadNum=m_nReadNum;
-    pDataInfo->WriteNum=1;
+    pDataInfo->WriteNum=2;   //WBox sends 2 bytes each time
 
     QString str;            //to store the written data so that they can be shown in infoEdit
     int i = 0;
@@ -100,38 +100,39 @@ void USB2SPIWindow::WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, cha
     int k = 0;
     for(j=0;j<m_nWriteNum/16;j++)   //to show each (16 bytes) written data in infoEdit
     {
-        pDataInfo->Databuffer[0]=DB[i+j*16];
+        for(i=0;i<16;i=i+2)
+            {
+                pDataInfo->Databuffer[0]=DB[i+j*16];
+                pDataInfo->Databuffer[1]=DB[i+1+j*16];
+                GY7502_USBSPI_Write(pDataInfo);
+                if(print)
+                {
+                    str.append(QString::number(0xFF & DB[i+j*16], 16));
+                    str.append("  ");
+                    str.append(QString::number(0xFF & DB[i+1+j*16], 16));
+                    str.append("  ");
+                }
+
+            }
+            ui->infoEdit->append(str);
+            str.clear();
+    }
+
+
+    for(k=j*16;k<m_nWriteNum;k=k+2) //to show the rest of wriiten data in infoEdit
+    {
+        pDataInfo->Databuffer[0]=DB[k];
+        pDataInfo->Databuffer[1]=DB[k+1];
         GY7502_USBSPI_Write(pDataInfo);
 
         if(print)
         {
-            for(i=0;i<16;i++)
-            {
-                str.append(QString::number(0xFF & DB[i+j*16], 16));
-                str.append("  ");
-            }
-            ui->infoEdit->append(str);
-            str.clear();
+            str.append(QString::number(0xFF & DB[k], 16));
+            str.append("  ");
+            str.append(QString::number(0xFF & DB[k+1], 16));
+            str.append("  ");
         }
-    }
-
-    for(k=j*16;k<m_nWriteNum;k++) //to show the rest of wriiten data in infoEdit
-    {
-        pDataInfo->Databuffer[0]=DB[k];
-        GY7502_USBSPI_Write(pDataInfo);
-
-        str.append(QString::number(0xFF & DB[k], 16));
-        str.append("  ");
     }
     ui->infoEdit->append(str);
     str.clear();
-}
-
-void USB2SPIWindow::Test()
-{
-    ui->infoEdit->clear();
-    char *n = new char [57];
-    for(int i=0;i<57;i++)
-        n[i] = i;
-    WriteData(0,0,57,n,true);
 }

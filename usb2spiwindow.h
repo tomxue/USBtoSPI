@@ -16,6 +16,12 @@ namespace Ui {
     class USB2SPIWindow;
 }
 
+typedef struct fname
+{
+    int length;
+    char* nameadd;
+}fname;
+
 class USB2SPIWindow : public QMainWindow
 {
     Q_OBJECT
@@ -36,12 +42,10 @@ private slots:
     void on_closeButton_clicked();
     void WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, char DB[60], bool print);
     void WriteFile();
-    void WriteFirstPage(QString filename);
-    void WriteMiddlePage(QString filename);
-    void WriteFileSize(QString filename);
-    void WriteFileNameCodingType(QString filename);
-    void WriteFileName(QString filename);
-    void WriteFileRawData(QString filename,int startadd,int numTowrite);
+    void WritePages(QString filename);
+    int  GetFileSize(QString filename);
+    char GetFilenameCodingtype(QString filename);
+    fname* GetFilename(QString filename, bool print);
 
     void Test();
 };

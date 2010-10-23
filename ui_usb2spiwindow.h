@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'usb2spiwindow.ui'
 **
-** Created: Wed Oct 20 11:49:06 2010
+** Created: Sat Oct 23 12:18:58 2010
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -18,6 +18,7 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
+#include <QtGui/QSpinBox>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTextEdit>
 #include <QtGui/QToolBar>
@@ -38,6 +39,7 @@ public:
     QPushButton *closeButton;
     QTextEdit *infoEdit;
     QPushButton *testButton;
+    QSpinBox *spinBox;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -83,6 +85,11 @@ public:
         testButton = new QPushButton(centralWidget);
         testButton->setObjectName(QString::fromUtf8("testButton"));
         testButton->setGeometry(QRect(20, 190, 75, 23));
+        spinBox = new QSpinBox(centralWidget);
+        spinBox->setObjectName(QString::fromUtf8("spinBox"));
+        spinBox->setGeometry(QRect(20, 220, 71, 22));
+        spinBox->setMaximum(1000);
+        spinBox->setValue(58);
         USB2SPIWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(USB2SPIWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));

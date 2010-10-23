@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'usb2spiwindow.h'
 **
-** Created: Wed Oct 20 23:04:24 2010
+** Created: Sat Oct 23 11:25:09 2010
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_USB2SPIWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -38,12 +38,10 @@ static const uint qt_meta_data_USB2SPIWindow[] = {
      132,   91,   14,   14, 0x08,
      169,   14,   14,   14, 0x08,
      190,  181,   14,   14, 0x08,
-     214,  181,   14,   14, 0x08,
-     239,  181,   14,   14, 0x08,
-     262,  181,   14,   14, 0x08,
-     295,  181,   14,   14, 0x08,
-     347,  318,   14,   14, 0x08,
-     381,   14,   14,   14, 0x08,
+     214,  181,  210,   14, 0x08,
+     240,  181,  235,   14, 0x08,
+     293,  278,  271,   14, 0x08,
+     319,   14,   14,   14, 0x08,
 
        0        // eod
 };
@@ -54,13 +52,10 @@ static const char qt_meta_stringdata_USB2SPIWindow[] = {
     "on_closeButton_clicked()\0"
     "m_bRadio,m_nReadNum,m_nWriteNum,DB,print\0"
     "WriteData(int,int,int,char[60],bool)\0"
-    "WriteFile()\0filename\0WriteFirstPage(QString)\0"
-    "WriteMiddlePage(QString)\0"
-    "WriteFileSize(QString)\0"
-    "WriteFileNameCodingType(QString)\0"
-    "WriteFileName(QString)\0"
-    "filename,startadd,numTowrite\0"
-    "WriteFileRawData(QString,int,int)\0"
+    "WriteFile()\0filename\0WritePages(QString)\0"
+    "int\0GetFileSize(QString)\0char\0"
+    "GetFilenameCodingtype(QString)\0fname*\0"
+    "filename,print\0GetFilename(QString,bool)\0"
     "Test()\0"
 };
 
@@ -99,16 +94,17 @@ int USB2SPIWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 3: on_closeButton_clicked(); break;
         case 4: WriteData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< char(*)[60]>(_a[4])),(*reinterpret_cast< bool(*)>(_a[5]))); break;
         case 5: WriteFile(); break;
-        case 6: WriteFirstPage((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 7: WriteMiddlePage((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 8: WriteFileSize((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 9: WriteFileNameCodingType((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 10: WriteFileName((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 11: WriteFileRawData((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
-        case 12: Test(); break;
+        case 6: WritePages((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 7: { int _r = GetFileSize((*reinterpret_cast< QString(*)>(_a[1])));
+            if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
+        case 8: { char _r = GetFilenameCodingtype((*reinterpret_cast< QString(*)>(_a[1])));
+            if (_a[0]) *reinterpret_cast< char*>(_a[0]) = _r; }  break;
+        case 9: { fname* _r = GetFilename((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])));
+            if (_a[0]) *reinterpret_cast< fname**>(_a[0]) = _r; }  break;
+        case 10: Test(); break;
         default: ;
         }
-        _id -= 13;
+        _id -= 11;
     }
     return _id;
 }
