@@ -40,6 +40,7 @@ private slots:
     void CloseDevice();
     void on_openButton_clicked();
     void on_closeButton_clicked();
+    void on_aboutButton_clicked();
     void WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, char DB[60], bool print);
     void WriteFile();
     void WritePages(QString filename);

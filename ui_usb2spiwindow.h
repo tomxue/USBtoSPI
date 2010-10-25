@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'usb2spiwindow.ui'
 **
-** Created: Sat Oct 23 12:18:58 2010
+** Created: Mon Oct 25 23:10:13 2010
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -40,6 +40,7 @@ public:
     QTextEdit *infoEdit;
     QPushButton *testButton;
     QSpinBox *spinBox;
+    QPushButton *aboutButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -90,6 +91,9 @@ public:
         spinBox->setGeometry(QRect(20, 220, 71, 22));
         spinBox->setMaximum(1000);
         spinBox->setValue(58);
+        aboutButton = new QPushButton(centralWidget);
+        aboutButton->setObjectName(QString::fromUtf8("aboutButton"));
+        aboutButton->setGeometry(QRect(20, 270, 75, 23));
         USB2SPIWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(USB2SPIWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -115,6 +119,7 @@ public:
         fileButton->setText(QApplication::translate("USB2SPIWindow", "Write File", 0, QApplication::UnicodeUTF8));
         closeButton->setText(QApplication::translate("USB2SPIWindow", "Close Device", 0, QApplication::UnicodeUTF8));
         testButton->setText(QApplication::translate("USB2SPIWindow", "Test", 0, QApplication::UnicodeUTF8));
+        aboutButton->setText(QApplication::translate("USB2SPIWindow", "About", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

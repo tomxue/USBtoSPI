@@ -17,6 +17,7 @@
 #include "ui_usb2spiwindow.h"
 #include <stdio.h>
 #include <QTextStream>
+#include <QMessageBox>
 
 USB2SPIWindow::USB2SPIWindow(QWidget *parent):
     QMainWindow(parent),
@@ -136,3 +137,4 @@ void USB2SPIWindow::WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, cha
     ui->infoEdit->append(str);
     str.clear();
 }
+

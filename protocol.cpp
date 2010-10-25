@@ -158,6 +158,8 @@ fname* USB2SPIWindow::GetFilename(QString filename, bool print)
     //int len = purefilename.toUtf8().length();
 
     fname *fn;
+    //page 95 of <C and pointer>
+    //warning: 'fn' may be used uninitialized in this function
     fn = (fname*)malloc(sizeof(fname*));
     fn->nameadd = purefilename.toUtf8().data();
     fn->length = purefilename.toUtf8().size();
@@ -180,4 +182,9 @@ void USB2SPIWindow::Test()
     WriteData(0,0,len,n,true);
 
     //emit(ui->fileButton->click());
+}
+
+void USB2SPIWindow::on_aboutButton_clicked()
+{
+    QMessageBox::information(this,"Copyright","Tom Xue, Qctober of 2010");
 }
