@@ -39,6 +39,12 @@ USB2SPIWindow::USB2SPIWindow(QWidget *parent):
 
     connect(ui->testButton, SIGNAL(clicked()),
             this, SLOT(Test()));
+
+    connect(ui->comboBox, SIGNAL(activated(int)),
+            this, SLOT(ConfigSet()));
+
+    connect(ui->comboBox_2, SIGNAL(activated(int)),
+            this, SLOT(ConfigSet()));
 }
 
 USB2SPIWindow::~USB2SPIWindow()
@@ -51,20 +57,9 @@ void USB2SPIWindow::OpenDevice()
     if(GY7502_USBSPI_Open()==0)
         ui->infoEdit->append("Failed to open USB-SPI adapter!");
     else
-        ui->infoEdit->append("Successful to open USB-SPI adapter!");
+        ui->infoEdit->append("Successful to open USB-SPI adapter!");    
 
-
-    //SetConfig of Device
-    GY7502_CONFIG_INFO pConfigInfo[1];
-    m_nFreq = 4;    //4~2000kHz
-    m_nSpiMode = 3; //SPI Mode,to define CKPOL,CKPHA //Tom supposes: 3~CKPHA=1, CKPOL=1
-    pConfigInfo->kFreq = m_nFreq;
-    pConfigInfo->SpiMode = m_nSpiMode;
-
-    if(GY7502_USBSPI_SetConfig(pConfigInfo)==0)
-        ui->infoEdit->append("Failed to setting adapter!\n");
-    else
-        ui->infoEdit->append("Successful to setting adapter!\n");
+    ConfigSet();
 }
 
 void USB2SPIWindow::CloseDevice()
@@ -87,6 +82,64 @@ void USB2SPIWindow::on_closeButton_clicked()
     ui->openButton->setEnabled(true);
 }
 
+void USB2SPIWindow::ConfigSet()
+{
+    //SetConfig of Device
+    GY7502_CONFIG_INFO *pConfigInfo;
+
+    int retOfsck, retOfmode;
+    retOfsck = ui->comboBox->currentIndex();
+    retOfmode = ui->comboBox_2->currentIndex();
+
+    switch(retOfsck)
+    {
+    case 0:
+        pConfigInfo->kFreq = 3; //1000kHz, default setting
+        break;
+    case 1:
+        pConfigInfo->kFreq = 0; //100kHz
+        break;
+    case 2:
+        pConfigInfo->kFreq = 1; //200kHz
+        break;
+    case 3:
+        pConfigInfo->kFreq = 2; //500kHz
+        break;
+    case 4:
+        pConfigInfo->kFreq = 4; //2000kHz
+        break;
+    case 5:
+        pConfigInfo->kFreq = 5; //6000kHz
+        break;
+    default:
+        pConfigInfo->kFreq = 3; //1000kHz, default setting
+        break;
+    }
+
+    switch(retOfmode)
+    {
+        case 0:
+            pConfigInfo->SpiMode = 3; //CKPHA=1, CKPOL=1, default setting
+            break;
+        case 1:
+            pConfigInfo->SpiMode = 0; //CKPHA=0, CKPOL=0
+            break;
+        case 2:
+            pConfigInfo->SpiMode = 1; //CKPHA=0, CKPOL=1
+            break;
+        case 3:
+            pConfigInfo->SpiMode = 2; //CKPHA=1, CKPOL=0
+            break;
+        default:
+            pConfigInfo->SpiMode = 3; //CKPHA=1, CKPOL=1, default setting
+            break;
+    }
+
+    if(GY7502_USBSPI_SetConfig(pConfigInfo)==0)
+        ui->infoEdit->append("Failed to setting adapter!\n");
+    else
+        ui->infoEdit->append("Successful to setting adapter!\n");
+}
 
 void USB2SPIWindow::WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, char DB[256], bool print)
 {
@@ -94,6 +147,7 @@ void USB2SPIWindow::WriteData(int m_bRadio, int m_nReadNum, int m_nWriteNum, cha
     pDataInfo->ChipSelect=m_bRadio;
     pDataInfo->ReadNum=m_nReadNum;
     pDataInfo->WriteNum=2;   //WBox sends 2 bytes each time
+
 
     QString str;            //to store the written data so that they can be shown in infoEdit
     int i = 0;

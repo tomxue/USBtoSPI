@@ -12,6 +12,9 @@ extern "C"
 #include "GY7502_USBSPI.h"
 }
 
+
+
+
 namespace Ui {
     class USB2SPIWindow;
 }
@@ -49,6 +52,7 @@ private slots:
     fname* GetFilename(QString filename, bool print);
 
     void Test();
+    void ConfigSet();
 };
 
 #endif // USB2SPIWINDOW_H

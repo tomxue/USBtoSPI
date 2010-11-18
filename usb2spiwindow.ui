@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>591</width>
-    <height>554</height>
+    <width>596</width>
+    <height>752</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,9 +58,9 @@
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>21</y>
+      <y>90</y>
       <width>471</width>
-      <height>481</height>
+      <height>611</height>
      </rect>
     </property>
    </widget>
@@ -89,6 +89,9 @@
     <property name="maximum">
      <number>1000</number>
     </property>
+    <property name="singleStep">
+     <number>2</number>
+    </property>
     <property name="value">
      <number>58</number>
     </property>
@@ -106,13 +109,109 @@
      <string>About</string>
     </property>
    </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>20</y>
+      <width>122</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>SPI SCK:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <item>
+        <property name="text">
+         <string>1000kHz</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>100kHz</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>200kHz</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>500kHz</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>2000kHz</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>6000kHz</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>50</y>
+      <width>188</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>SPI Mode:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_2">
+       <item>
+        <property name="text">
+         <string>CKPHA=1, CKPOL=1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>CKPHA=0, CKPOL=0</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>CKPHA=0, CKPOL=1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>CKPHA=1, CKPOL=0</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>591</width>
+     <width>596</width>
      <height>18</height>
     </rect>
    </property>

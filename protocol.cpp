@@ -41,7 +41,7 @@ void USB2SPIWindow::WritePages(QString filename)
 {
     //1st page write
     char *firstpage = new char [265];
-    firstpage[0] = 0xA;                      //flag: 1st page 'A'; 1 byte
+    firstpage[0] = 0x1;                      //flag: 1st page '1'; 1 byte
 
     int *ptr1;                           //running page number = 1; int: 32bit, 4 bytes
     ptr1 = (int*)(&firstpage[1]);        //(int *) is type casting
@@ -60,66 +60,51 @@ void USB2SPIWindow::WritePages(QString filename)
     ptr4 = &firstpage[10];
     for(int i=0;i<len;i++)
         *(ptr4+i) = *(GetFilename(filename, false)->nameadd+i);    //copy each byte of the file name
-    for(int i=len;i<255;i++)
-        *(ptr4+i) = 0;                                      //rest of the filename space is set with 0
-
-    WriteData(0, 0, 256, firstpage, true);
+    *(ptr4+len) = 0x0;//NULL terminated
 
 
-    //2nd page write
     int totalpagenum;   //total page number
     QFile file(filename);
     file.open(QIODevice::ReadOnly);
-    totalpagenum = ((file.size()-242)%251 == 0)?(2+(file.size()-242)/251):(2+(file.size()-242)/251+1);
+    totalpagenum = ((file.size()-10-len-1)%251 == 0)?((file.size()-10-len-1)/251 +1):((file.size()-10-len-1)/251 + 2);
 
-    QDataStream d(&file);                    //to read the file data to sDataOfFile
+    QDataStream d(&file);                       //to read the file data to sDataOfFile
     char *sDataOfFile = new char [file.size()];
     d.readRawData(sDataOfFile, file.size());
 
 
-    char *secondpage = new char [256];
-    secondpage[0] = 0xB;                      //flag: 2nd page 'B'; 1 byte
+    int fdatanum = 256-10-len-1;
 
-    int *ptr5;                           //running page number = 2; int: 32bit, 4 bytes
-    ptr5 = (int*)(&secondpage[1]);
-    *ptr5 = 2;
+    for(int i=0;i<fdatanum;i++)         //file data of 1st page
+        firstpage[10+len+1+i] = sDataOfFile[i];
 
-    char *ptr6 = new char [9];        //rest of file name
-    ptr6 = &secondpage[5];
-    for(int i=0;i<9;i++)
-        *(ptr6+i) = 0;                //rest of the filename in 2nd page is set with 0
+    WriteData(0, 0, 256, firstpage, true);
 
-    char *ptr7 = new char [242];        //file data of 2nd page
-    ptr7 = &secondpage[14];
-    for(int i=0;i<242;i++)
-        secondpage[14+i] = sDataOfFile[i];
 
-    WriteData(0, 0, 256, secondpage, true);
-
-    //3, 4, 5... page write
+    //2, 3, 4, 5... middle page write
     char *restpage = new char [256];
-    restpage[0] = 0xB;                 //flag: middle page 'B'; 1 byte
+    restpage[0] = 0x2;                 //flag: middle page '2'; 1 byte
 
     int *ptr8;
     int i;
-    for(i=3;i<totalpagenum;i++)
+    for(i=2;i<(totalpagenum-1);i++)
     {
-        ptr8 = (int*)(&restpage[1]);    //running page number = 3, 4, 5...
+        ptr8 = (int*)(&restpage[1]);    //running page number = 2, 3, 4, 5...
         *ptr8 = i;
         for(int j=0;j<251;j++)
-            restpage[5+j] = sDataOfFile[j+(i-3)*251+242];
+            restpage[5+j] = sDataOfFile[j+(i-2)*251+fdatanum];
         WriteData(0, 0, 256, restpage, true);
     }
 
     //last page write ???
     char *lastpage = new char [256];
-    lastpage[0] = 0xC;                 //flag: last page 'C'; 1 byte
+    lastpage[0] = 0x3;                 //flag: last page '3'; 1 byte
 
     int *ptr9;
     ptr9 = (int*)(&lastpage[1]);    //running page number
     *ptr9 = i;
     for(int j=0;j<251;j++)
-        lastpage[5+j] = sDataOfFile[j+(i-3)*251+242];
+        lastpage[5+j] = sDataOfFile[j+(i-2)*251+fdatanum];
     WriteData(0, 0, 256, lastpage, true);
 }
 
@@ -139,11 +124,12 @@ int USB2SPIWindow::GetFileSize(QString filename)
 
 char USB2SPIWindow::GetFilenameCodingtype(QString filename)   //to be updated...
 {
-    ui->infoEdit->append("File name coding type is below:");
+    ui->infoEdit->append("File name coding type is fixed to '1' currently");
 
     char coding = 1;
     return coding;
 }
+
 
 fname* USB2SPIWindow::GetFilename(QString filename, bool print)
 {
@@ -178,7 +164,7 @@ void USB2SPIWindow::Test()
 
     char *n = new char [len];
     for(int i=0;i<len;i++)
-        n[i] = i;
+        n[i] = i+5;
     WriteData(0,0,len,n,true);
 
     //emit(ui->fileButton->click());
